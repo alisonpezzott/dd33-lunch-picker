@@ -1,0 +1,231 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:is(.dark *));
+
+/* Bridged tokens — kept in `@theme static` so the CSS vars are always
+   emitted, not tree-shaken when no Tailwind utility consumes them.
+   Required because <VegaVisual> and <DataGrid> read these at runtime via
+   `useCssTheme()` and project them into a JS theme object (Vega's SVG output
+   cannot resolve `var()` references). */
+@theme static {
+  --color-brand: #3c5736;
+  --color-brand-foreground: #3c5736;
+  --color-hover: #eef0e5;
+}
+
+@theme {
+  /* Color tokens — light theme
+     Usage: bg-*, text-*, border-* (e.g. bg-primary text-primary-foreground)
+     Each token has a -foreground pair for text on that surface. */
+  --color-background: #f8f8f0;
+  --color-foreground: #283727;
+
+  --color-card: #ffffff; /* card surfaces */
+  --color-card-foreground: #283727;
+
+  --color-popover: #ffffff; /* popover/dropdown surfaces */
+  --color-popover-foreground: #283727;
+
+  --color-primary: #344f2e;
+  --color-primary-foreground: #ffffff;
+
+  --color-secondary: #eaf0de;
+  --color-secondary-foreground: #344f2e;
+
+  --color-muted: #f0f1e8;
+  --color-muted-foreground: #72766b;
+
+  --color-accent: #d7ed9f;
+  --color-accent-foreground: #283727;
+  --color-peach: #f9e4d4;
+  --color-peach-foreground: #834a2b;
+  --color-lavender: #eee8f5;
+  --color-lavender-foreground: #675282;
+  --color-sunshine: #f4edce;
+  --color-sunshine-foreground: #766328;
+  --color-winner: #edf3df;
+  --color-winner-foreground: #344f2e;
+
+  --color-destructive: #c50f1f; /* errors & destructive actions */
+  --color-destructive-foreground: #ffffff;
+
+  --color-border: #e3e5d9;
+  --color-input: #d7dbcd;
+  --color-ring: #567443;
+
+  --radius-none: 0;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 20px;
+  --radius-4xl: 28px;
+  --radius-5xl: 32px;
+  --radius-6xl: 40px;
+  --radius-full: 9999px;
+  --radius: 12px;
+  --container-board: 1180px;
+  --spacing-touch: 44px;
+  --spacing-art: 176px;
+  --spacing-art-small: 112px;
+  --spacing-loading: 180px;
+  --spacing-page: 48px;
+  --spacing-hero: 56px;
+  --tracking-label: 0.13em;
+
+  /* Spacing — 4px grid; use only these tokens, no interpolation. *-nudge = base − 2px.
+     Usage: p-*, m-*, gap-* (e.g. p-400 gap-300) */
+  --spacing-none: 0;
+  --spacing-100-nudge: 2px;
+  --spacing-100: 4px;
+  --spacing-200-nudge: 6px;
+  --spacing-200: 8px;
+  --spacing-300-nudge: 10px;
+  --spacing-300: 12px;
+  --spacing-400: 16px;
+  --spacing-500: 20px;
+  --spacing-600: 24px;
+  --spacing-700: 28px;
+  --spacing-800: 32px;
+
+  /* Font Sizes — 100-based scale 
+     Usage: text-* (e.g. text-300, text-hero-900) */
+  --text-100: 10px;
+  --text-200: 12px;
+  --text-300: 14px;
+  --text-400: 16px;
+  --text-500: 20px;
+  --text-600: 24px;
+  --text-hero-700: 28px;
+  --text-hero-800: 32px;
+  --text-hero-900: 40px;
+  --text-hero-1000: 68px;
+
+  /* Line Heights — paired with font sizes
+     Usage: leading-* (e.g. leading-300) */
+  --leading-100: 14px;
+  --leading-200: 16px;
+  --leading-300: 20px;
+  --leading-400: 22px;
+  --leading-500: 28px;
+  --leading-600: 32px;
+  --leading-hero-700: 36px;
+  --leading-hero-800: 40px;
+  --leading-hero-900: 52px;
+  --leading-hero-1000: 92px;
+
+  /* Font Weights
+     Usage: font-* (e.g. font-semibold) */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Font Families
+     Usage: font-* (e.g. font-heading, font-base) */
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-base: 'DM Sans', sans-serif;
+  --font-monospace:
+    Consolas, 'Courier New', Courier, monospace; /* code, pre-formatted text */
+  --font-numeric: 'Space Grotesk', sans-serif;
+
+  /* Icon Sizes — 100-based scale
+     Usage: icon-size-* custom utility (e.g. icon-size-200) */
+  --icon-size-100: 12px;
+  --icon-size-200: 16px;
+  --icon-size-300: 20px;
+  --icon-size-400: 24px;
+  --icon-size-500: 28px;
+  --icon-size-600: 32px;
+  --icon-size-700: 48px;
+}
+
+@utility icon-size-* {
+  width: --value(--icon-size-*);
+  height: --value(--icon-size-*);
+}
+
+@layer base {
+  .dark {
+    /* Color tokens — dark theme */
+    --color-background: #1c251d;
+    --color-foreground: #f2f3e7;
+
+    --color-card: #253026;
+    --color-card-foreground: #f2f3e7;
+
+    --color-popover: #2b382c;
+    --color-popover-foreground: #f2f3e7;
+
+    --color-primary: #d7ed9f;
+    --color-primary-foreground: #253026;
+
+    --color-secondary: #344333;
+    --color-secondary-foreground: #e3eccf;
+
+    --color-muted: #2b372c;
+    --color-muted-foreground: #abb5a5;
+
+    --color-accent: #465735;
+    --color-accent-foreground: #e8f4d0;
+    --color-peach: #4a352a;
+    --color-peach-foreground: #f2bd96;
+    --color-lavender: #3d3549;
+    --color-lavender-foreground: #d2bfeb;
+    --color-sunshine: #48442b;
+    --color-sunshine-foreground: #e2d38c;
+    --color-winner: #303e29;
+    --color-winner-foreground: #d7ed9f;
+
+    --color-destructive: #f49e94;
+    --color-destructive-foreground: #301b19;
+
+    --color-border: #3d4a39;
+    --color-input: #53614c;
+    --color-ring: #d7ed9f;
+
+    --color-brand: #d7ed9f;
+    --color-brand-foreground: #d7ed9f;
+    --color-hover: #344333;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-base text-300 leading-400 antialiased;
+  }
+
+  button, input, textarea, select {
+    font-family: inherit;
+  }
+
+  button, a, input, textarea, select {
+    @apply outline-offset-4 focus-visible:outline-2 focus-visible:outline-ring;
+  }
+
+  button {
+    @apply cursor-pointer disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  ::selection {
+    @apply bg-accent text-accent-foreground;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
